@@ -13,7 +13,6 @@ import jsonschema
 from hypothesis import given, settings, HealthCheck
 
 from camdkit.clip import Clip
-from camdkit.examples import _unwrap_clip_to_pseudo_frame
 
 from property.generators import clips
 
@@ -33,10 +32,10 @@ def _to_single_frame_json(clip):
     """Return a schema-valid single-frame JSON dict for the clip.
 
     Clip.to_json() produces multi-frame arrays for dynamic fields; the schema
-    expects single values. _unwrap_clip_to_pseudo_frame mirrors what the example
+    expects single values. to_pseudo_frame_json mirrors what the example
     generators do before writing the example JSON files.
     """
-    return json.loads(json.dumps(_unwrap_clip_to_pseudo_frame(clip.to_json(0))))
+    return json.loads(json.dumps(clip.to_pseudo_frame_json(0)))
 
 
 class SchemaAgreementTests(unittest.TestCase):
